@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -11,10 +12,16 @@ export default function Login(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [disable, setDisable] = useState(false);
+
     const linkText = 'Não tem uma conta? Cadastre-se!';
     const buttonText = 'Entrar';
 
+    const navigate = useNavigate(); 
+
     function PostLogin(){
+
+        setDisable(true);
 
         const loginObject = {
                             email,
@@ -25,10 +32,12 @@ export default function Login(){
 
         promise
             .then(response => {
-                console.log(response.data)
+                console.log(response.data);
+                navigate('/hoje');
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                alert('Não foi possível fazer o login');
+                setDisable(false);
             })
         
     }
@@ -36,9 +45,9 @@ export default function Login(){
     return (
         <Container>
             <TrackItLogo />
-            <DefaultInput placeHolder='email' state={setEmail} value={email} />
-            <DefaultInput placeHolder='senha' state={setPassword} value={password} />
-            <DefaultButton innerText={buttonText} onClickFunction={PostLogin} />
+            <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
+            <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
+            <DefaultButton disable={disable} innerText={buttonText} onClickFunction={PostLogin} />
             <DefaultLink linkText={linkText} redirectTo='/cadastro' />
         </Container>
     );

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import TrackItLogo from './general-login-signup/logo';
 import DefaultInput from './general-login-signup/default-input';
@@ -13,10 +14,16 @@ export default function CreateAccount(){
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [picture, setPicture] = useState('');
+    const [disable, setDisable] = useState(false);
+
     const linkText = 'Já tem uma conta? Faça login!';
     const buttonText = 'Cadastrar';
 
+    const navigate = useNavigate();
+
     function PostAccount(){
+
+        setDisable(true);
         
         const accountObject = {
                             email,
@@ -24,17 +31,16 @@ export default function CreateAccount(){
                             image: picture,
                             password                        
                             }
-
-        console.log(accountObject);
         
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', accountObject);
 
         promise
-            .then(response => {
-                console.log('deu td certo')
+            .then(() => {
+                navigate('/');
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                alert('Não foi possível finalizar o cadastro');
+                setDisable(false);
             }) 
 
     }
@@ -42,11 +48,11 @@ export default function CreateAccount(){
     return (
         <Container>
             <TrackItLogo />
-            <DefaultInput placeHolder='email' state={setEmail} value={email} />
-            <DefaultInput placeHolder='senha' state={setPassword} value={password} />
-            <DefaultInput placeHolder='nome' state={setName} value={name} />
-            <DefaultInput placeHolder='foto' state={setPicture} value={picture} />
-            <DefaultButton innerText={buttonText} onClickFunction={PostAccount} />
+            <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
+            <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
+            <DefaultInput disable={disable} placeHolder='nome' type='text' state={setName} value={name} />
+            <DefaultInput disable={disable} placeHolder='foto' type='url' state={setPicture} value={picture} />
+            <DefaultButton disable={disable} innerText={buttonText} onClickFunction={PostAccount} />
             <DefaultLink linkText={linkText} redirectTo='/' />
         </Container>
     );
