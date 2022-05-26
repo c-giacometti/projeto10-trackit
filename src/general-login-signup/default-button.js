@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ThreeDots } from 'react-loader-spinner';
 
-export default function DefaultButton({ disable, innerText, onClickFunction }){
+export default function DefaultButton({ disable, innerText, type }){
 
-    if(disable){
+    if(disable !== ''){
 
         return (
             <Button>
@@ -18,7 +18,7 @@ export default function DefaultButton({ disable, innerText, onClickFunction }){
     } else {
 
         return (
-            <Button onClick={onClickFunction}>
+            <Button type={type}>
                 {innerText}
             </Button>
         );
@@ -29,7 +29,7 @@ export default function DefaultButton({ disable, innerText, onClickFunction }){
 
 const Button = styled.button `
     box-sizing: border-box;
-    width: 320px;
+    width: 322px;
     height: 45px;
     background-color: #52B6FF;
     color: white;

@@ -14,16 +14,18 @@ export default function CreateAccount(){
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [picture, setPicture] = useState('');
-    const [disable, setDisable] = useState(false);
+    const [disable, setDisable] = useState('');
 
     const linkText = 'Já tem uma conta? Faça login!';
     const buttonText = 'Cadastrar';
 
     const navigate = useNavigate();
 
-    function PostAccount(){
+    function PostAccount(event){
 
-        setDisable(true);
+        event.preventDefault();
+
+        setDisable('disabled');
         
         const accountObject = {
                             email,
@@ -40,7 +42,7 @@ export default function CreateAccount(){
             })
             .catch(() => {
                 alert('Não foi possível finalizar o cadastro');
-                setDisable(false);
+                setDisable('');
             }) 
 
     }
@@ -48,11 +50,13 @@ export default function CreateAccount(){
     return (
         <Container>
             <TrackItLogo />
-            <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
-            <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
-            <DefaultInput disable={disable} placeHolder='nome' type='text' state={setName} value={name} />
-            <DefaultInput disable={disable} placeHolder='foto' type='url' state={setPicture} value={picture} />
-            <DefaultButton disable={disable} innerText={buttonText} onClickFunction={PostAccount} />
+            <form onSubmit={PostAccount}>
+                <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
+                <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
+                <DefaultInput disable={disable} placeHolder='nome' type='text' state={setName} value={name} />
+                <DefaultInput disable={disable} placeHolder='foto' type='url' state={setPicture} value={picture} />
+                <DefaultButton disable={disable} innerText={buttonText} type='submit' />
+            </form>
             <DefaultLink linkText={linkText} redirectTo='/' />
         </Container>
     );

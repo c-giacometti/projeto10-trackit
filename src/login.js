@@ -12,16 +12,18 @@ export default function Login(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [disable, setDisable] = useState(false);
+    const [disable, setDisable] = useState('');
 
     const linkText = 'Não tem uma conta? Cadastre-se!';
     const buttonText = 'Entrar';
 
     const navigate = useNavigate(); 
 
-    function PostLogin(){
+    function PostLogin(event){
 
-        setDisable(true);
+        event.preventDefault();
+
+        setDisable('disabled');
 
         const loginObject = {
                             email,
@@ -37,7 +39,7 @@ export default function Login(){
             })
             .catch(() => {
                 alert('Não foi possível fazer o login');
-                setDisable(false);
+                setDisable('');
             })
         
     }
@@ -45,9 +47,11 @@ export default function Login(){
     return (
         <Container>
             <TrackItLogo />
-            <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
-            <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
-            <DefaultButton disable={disable} innerText={buttonText} onClickFunction={PostLogin} />
+            <form onSubmit={PostLogin}>
+                <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
+                <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
+                <DefaultButton disable={disable} innerText={buttonText} type='submit' />
+            </form>
             <DefaultLink linkText={linkText} redirectTo='/cadastro' />
         </Container>
     );
