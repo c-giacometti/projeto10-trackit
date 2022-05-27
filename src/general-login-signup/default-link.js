@@ -12,6 +12,7 @@ export default function DefaultLink( { linkText, redirectTo }){
 }
 
 const LinkContainer = styled.span `
+    margin-top: 25px;
     a {
         font-size: 15px;
         color: #52B6FF;

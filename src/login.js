@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import UserContext from './user-context';
 import TrackItLogo from './general-login-signup/logo';
 import DefaultInput from './general-login-signup/default-input';
 import DefaultButton from './general-login-signup/default-button';
@@ -14,6 +15,8 @@ export default function Login(){
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState('');
 
+    const { setUserInfoObject } = useContext(UserContext);
+ 
     const linkText = 'Não tem uma conta? Cadastre-se!';
     const buttonText = 'Entrar';
 
@@ -34,7 +37,7 @@ export default function Login(){
 
         promise
             .then(response => {
-                console.log(response.data);
+                setUserInfoObject(response.data);
                 navigate('/hoje');
             })
             .catch(() => {
@@ -50,7 +53,7 @@ export default function Login(){
             <form onSubmit={PostLogin}>
                 <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
                 <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
-                <DefaultButton disable={disable} innerText={buttonText} type='submit' />
+                <DefaultButton width='322px' size='22px' background='#52B6FF' color='white' disable={disable} innerText={buttonText} type='submit' />
             </form>
             <DefaultLink linkText={linkText} redirectTo='/cadastro' />
         </Container>

@@ -10,18 +10,20 @@ export default function Menu(){
         <Footer>
             <div><Link to='/habitos'>Hábitos</Link></div>
             <Progress>
-                <CircularProgressbar 
-                    value={percentage}
-                    text="Hoje"
-                    background="true"
-                    styles={buildStyles({
-                        backgroundColor: '#52B6FF',
-                        pathColor: 'white',
-                        textColor: 'white',
-                        textSize: '20px',
-                        strokeLinecap: 'round',
-                    })}
-                />
+                <Link to='/hoje'>
+                    <CircularProgressbar 
+                        value={percentage}
+                        text="Hoje"
+                        background="true"
+                        styles={buildStyles({
+                            backgroundColor: '#52B6FF',
+                            pathColor: 'white',
+                            textColor: 'white',
+                            textSize: '20px',
+                            strokeLinecap: 'round',
+                        })}
+                    />
+                </Link>
             </Progress>
             <div><Link to='/historico'>Histórico</Link></div>
         </Footer>
