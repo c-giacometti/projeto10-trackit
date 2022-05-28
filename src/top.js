@@ -34,13 +34,13 @@ const TopContainer = styled.div `
         color: white;
         font-size: 40px;
         font-family: 'Playball';
-        margin-left: 10px;
+        margin-left: 20px;
     }
 
     img {
         height: 50px;
         width: 50px;
         border-radius: 25px;
-        margin-right: 10px;
+        margin-right: 20px;
     }
 `

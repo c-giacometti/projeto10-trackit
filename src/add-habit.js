@@ -1,24 +1,26 @@
 import styled from 'styled-components';
+import NewHabit from './new-habit';
 
-export default function AddHabit(){
+export default function AddHabit({setAppear}){
 
     return (
-        <Container>
+        <AddHabitContainer>
             <span>Meus hábitos</span>
-            <div>+</div>
-        </Container>
+            <div onClick={() => setAppear(true)}>+</div>
+        </AddHabitContainer>
     );
 
 }
 
-const Container = styled.div `
+const AddHabitContainer = styled.div `
+    width: 100%;
     height: 80px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 70px;
-    padding: 10px;
+    padding: 20px;
 
     span {
         font-size: 22px;

@@ -55,7 +55,7 @@ export default function CreateAccount(){
                 <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
                 <DefaultInput disable={disable} placeHolder='nome' type='text' state={setName} value={name} />
                 <DefaultInput disable={disable} placeHolder='foto' type='url' state={setPicture} value={picture} />
-                <DefaultButton width='322px' size='22px' background='#52B6FF' color='white' disable={disable} innerText={buttonText} type='submit' />
+                <DefaultButton disable={disable} innerText={buttonText} type='submit' />
             </form>
             <DefaultLink linkText={linkText} redirectTo='/' />
         </Container>

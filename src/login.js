@@ -53,7 +53,7 @@ export default function Login(){
             <form onSubmit={PostLogin}>
                 <DefaultInput disable={disable} placeHolder='email' type='email' state={setEmail} value={email} />
                 <DefaultInput disable={disable} placeHolder='senha' type='password' state={setPassword} value={password} />
-                <DefaultButton width='322px' size='22px' background='#52B6FF' color='white' disable={disable} innerText={buttonText} type='submit' />
+                <DefaultButton disable={disable} innerText={buttonText} type='submit' />
             </form>
             <DefaultLink linkText={linkText} redirectTo='/cadastro' />
         </Container>

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { ThreeDots } from 'react-loader-spinner';
 
-export default function DefaultButton({ width, size, background, color, disable, innerText, type }){
+export default function DefaultButton({ disable, innerText, type }){
 
     if(disable !== ''){
 
         return (
-            <Button width={width}>
+            <Button>
                 <ThreeDots 
                     height="15px"
                     width="50px"
@@ -18,7 +18,7 @@ export default function DefaultButton({ width, size, background, color, disable,
     } else {
 
         return (
-            <Button type={type} width={width} size={size} background={background} color={color} >
+            <Button type={type}>
                 {innerText}
             </Button>
         );
@@ -29,11 +29,11 @@ export default function DefaultButton({ width, size, background, color, disable,
 
 const Button = styled.button `
     box-sizing: border-box;
-    width: ${(props) => props.width};
+    width: 322px;
     height: 45px;
-    background-color: ${(props) => props.background};
-    color: ${(props) => props.color};
-    font-size: ${(props) => props.size};
+    background-color: #52B6FF;
+    color: white;
+    font-size: 22px;
     border-radius: 5px;
     border: none;
     display: flex;
