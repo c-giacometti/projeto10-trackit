@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import NewHabit from './new-habit';
 
 export default function AddHabit({setAppear}){
 
@@ -19,7 +18,7 @@ const AddHabitContainer = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 70px;
+    margin: 70px 0px 10px 0px;
     padding: 20px;
 
     span {

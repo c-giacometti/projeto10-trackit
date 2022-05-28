@@ -7,13 +7,12 @@ import DefaultInput from './general-login-signup/default-input';
 import DefaultButton from './general-login-signup/default-button';
 import DayContainer from './day-container';
 
-export default function NewHabit({appear, setAppear}){
+export default function NewHabit( {appear, setAppear, userHabitsArray, setUserHabitsArray} ){
 
     const { userInfoObject } = useContext(UserContext);
     const [disable, setDisable] = useState('');
     const [habit, setHabit] = useState('');
     const [habitDaysArray, setHabitDaysArray] = useState([]);
-
     const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     function postHabit(event){
@@ -38,6 +37,8 @@ export default function NewHabit({appear, setAppear}){
         promise
             .then(response => {
                 setAppear(false);
+                const newArray = [...userHabitsArray, response.data];
+                setUserHabitsArray(newArray);
             })
             .catch(() => {
                 alert('Não foi possível adicionar o novo hábito');
@@ -51,7 +52,8 @@ export default function NewHabit({appear, setAppear}){
                 <DefaultInput disable={disable} placeHolder='nome do hábito' type='text' value={habit} state={setHabit} />
                 <DaysContainer>
                     {weekDays.map((render, index) => (
-                        <DayContainer day={render} habitDaysArray={habitDaysArray} setHabitDaysArray={setHabitDaysArray} index={index} key={index} />)
+                        <DayContainer day={render} habitDaysArray={habitDaysArray} setHabitDaysArray={setHabitDaysArray} newHabit='true'
+                         index={index} key={index} />)
                     )}
                 </DaysContainer>
                 <ButtonContainer>
@@ -72,12 +74,12 @@ const NewHabitContainer = styled.div `
     background-color: white;
     padding: 20px;
     border-radius: 5px;
+    margin-bottom: 10px;
 
     input {
         width: 320px;
     }
 `
-
 
 const DaysContainer = styled.div `
     width: inherit;
@@ -93,7 +95,7 @@ const ButtonContainer = styled.div `
 
     button {
         width: 85px;
-        margin-left: 5px;
+        margin: 30px 0px 0px 5px;
         font-size: 18px;
     }
 `
