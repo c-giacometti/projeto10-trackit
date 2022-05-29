@@ -8,10 +8,12 @@ import UserContext from './user-context';
 export default function TodayHabits(props){
 
     const { todayHabit, highest } = props;
-    const { userInfoObject } = useContext(UserContext);
+    const { userInfoObject, setDoneHabits } = useContext(UserContext);
     const [done, setDone] = useState(false);
 
     function checkHabit(){
+
+        setDoneHabits(0);
 
         const config = {
             headers: {

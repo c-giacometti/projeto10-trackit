@@ -11,9 +11,8 @@ import UserHabits from './user-habits';
 
 export default function HabitTracker(){
 
-    const { userInfoObject } = useContext(UserContext);
+    const { userInfoObject, userHabitsArray, setUserHabitsArray } = useContext(UserContext);
     const [appear, setAppear] = useState(false);
-    const [userHabitsArray, setUserHabitsArray] = useState([]);
 
     const config = {
         headers: {
@@ -32,7 +31,7 @@ export default function HabitTracker(){
             .catch(() => {
                 alert('Não foi possível carregar os hábitos');
             })
-    }, []);
+    }, [userHabitsArray]);
 
     if(userHabitsArray.length === 0){
         return (

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function DayContainer(props){
 
-    const { day, index, habitDaysArray, setHabitDaysArray, newHabit} = props;
+    const { day, index, habitDaysArray, setHabitDaysArray, newHabit, color} = props;
     const [selected, setSelected] = useState(false);
 
     function daySelected(){
@@ -27,8 +27,9 @@ export default function DayContainer(props){
             </Day>
         );
     } else {
+
         return (
-            <Day>
+            <Day color={color}>
                 {day}
             </Day>
         );
@@ -44,8 +45,8 @@ const Day = styled.div `
     justify-content: center;
     border: 1px solid #D4D4D4;
     border-radius: 4px;
-    background: ${(props) => props.selected ? '#D4D4D4' : 'white'};
-    color: ${(props) => props.selected ? 'white' : '#D4D4D4'};
+    background: ${(props) => (props.selected || props.color) ? '#D4D4D4' : 'white'};
+    color: ${(props) => (props.selected || props.color) ? 'white' : '#D4D4D4'};
     font-size: 20px;
     margin: 0px 5px 0px 0px;
     cursor: pointer;

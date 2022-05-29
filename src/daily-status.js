@@ -1,16 +1,29 @@
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 
-export default function DailyStatus( {doneHabits, todayHabits} ){
+import UserContext from './user-context';
 
-    if(doneHabits > 0 && todayHabits > 0){
+export default function DailyStatus( {todayHabits} ){
 
-        const percentage = (doneHabits / todayHabits) * 100;
+    const { doneHabits, setDoneHabits } = useContext(UserContext);
+
+    useEffect(() => {
+        for(let i = 0; i < todayHabits.length; i++){
+            if(todayHabits[i].done){
+                setDoneHabits(doneHabits + 1);
+            }
+        }
+    }, []);
+
+    if(doneHabits > 0 && todayHabits.length > 0){
+
+        const percentage = (doneHabits / todayHabits.length) * 100;
 
         return (
             <Day color='#8FC549'>
                 <span>{dayjs().format('dddd, D/MM')}</span>
-                <div>{percentage}% dos hábitos concluídos</div>   
+                <div>{percentage.toFixed(0)}% dos hábitos concluídos</div>   
             </Day>
         );
 

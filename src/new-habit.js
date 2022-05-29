@@ -60,7 +60,7 @@ export default function NewHabit( {appear, setAppear, userHabitsArray, setUserHa
                     )}
                 </DaysContainer>
                 <ButtonContainer>
-                    <DefaultButton disable={disable} type='cancel' innerText='Cancelar' />
+                    <Cancel onClick={() => setAppear(false)}>Cancelar</Cancel>
                     <DefaultButton disable={disable} type='submit' innerText='Salvar' />
                 </ButtonContainer>
             </form>
@@ -90,6 +90,18 @@ const DaysContainer = styled.div `
     justify-content: left;
 `
 
+const Cancel = styled.span `
+    height: 35px;
+    width: 85px;
+    font-size: 16px;
+    color: #52B6FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 30px 10px 0px 0px;
+`
+
 const ButtonContainer = styled.div `
     width: inherit;
     display: flex;
@@ -97,6 +109,7 @@ const ButtonContainer = styled.div `
     justify-content: right;
 
     button {
+        height: 35px;
         width: 85px;
         margin: 30px 0px 0px 5px;
         font-size: 18px;

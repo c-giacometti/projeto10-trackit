@@ -20,7 +20,9 @@ export default function UserHabits(props){
             }
         }
 
-        axios.delete(API, config);
+        axios.delete(API, config).then(
+            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config).then(response => setUserHabitsArray(response.data))
+        );
 
     }
 
@@ -32,7 +34,7 @@ export default function UserHabits(props){
             </HabitName>
             <DaysContainer>
                 {weekDays.map((render, index) => (
-                    <DayContainer day={render} newHabit='false' index={index} key={index} />)
+                    <DayContainer day={render} index={index} color={userHabitsDays[index] === index ? true : false} key={index} />)
                 )}
             </DaysContainer>
         </HabitContainer>

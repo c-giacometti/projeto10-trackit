@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { ThreeDots } from 'react-loader-spinner';
 import UserContext from './user-context';
 import Top from './top';
 import Menu from './menu';
@@ -11,14 +11,15 @@ import TodayHabits from './today-habits';
 export default function TodayView(){
 
     const APItoday = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
-    const { userInfoObject, todayHabitsArray, setTodayHabitsArray } = useContext(UserContext);
-    const [doneHabits, setDoneHabits] = useState(0);
+    const { userInfoObject, todayHabitsArray, setTodayHabitsArray, setDoneHabits } = useContext(UserContext);
 
     useEffect(() => {
 
+        setDoneHabits(0);
+
         const config = {
             headers: {
-                'AUthorization':'Bearer ' + userInfoObject.token
+                'Authorization':'Bearer ' + userInfoObject.token
             }
         }
 
@@ -27,13 +28,6 @@ export default function TodayView(){
         promise
             .then(response => {
                 setTodayHabitsArray(response.data);
-
-                for(let i = 0; i < todayHabitsArray.length; i++){
-                    if(todayHabitsArray[i].done){
-                        setDoneHabits(doneHabits + 1);
-                        console.log(doneHabits)
-                    }
-                }
             })
             .catch(() => {
                 alert('Não foi possível carregar os hábitos de hoje');
@@ -41,13 +35,23 @@ export default function TodayView(){
             
     }, []);
 
-    console.log(todayHabitsArray.length, doneHabits)
+    if(todayHabitsArray.length === 0) {
+        return (
+            <HabitContainer>
+                <ThreeDots 
+                height="15px"
+                width="50px"
+                color="#FFFFFF"
+                />
+            </HabitContainer>
+        );
+    }
 
     return (
         <div>
             <HabitContainer>
                 <Top />
-                <DailyStatus doneHabits={doneHabits} todayHabits={todayHabitsArray.length} />
+                <DailyStatus todayHabits={todayHabitsArray} />
                 <TodayHabitsContainer>
                     {todayHabitsArray.map((render, index) => render.currentSequence === render.highestSequence ? 
                         <TodayHabits todayHabit={render} key={index} highest='yes'/> : <TodayHabits todayHabit={render} key={index} highest='no'/>
