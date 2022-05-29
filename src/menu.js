@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -10,9 +10,11 @@ export default function Menu(){
     const { todayHabitsArray, doneHabits } = useContext(UserContext);
     const [percentage, setPercentage] = useState(0);
 
-    if(todayHabitsArray.length > 0) {
-        setPercentage((doneHabits / todayHabitsArray.length) * 100);
-    }
+    useEffect(() => {
+        if(todayHabitsArray.length > 0) {
+            setPercentage((doneHabits / todayHabitsArray.length) * 100);
+        }
+    },[]);
 
     return (
         <Footer>
