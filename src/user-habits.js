@@ -14,6 +14,10 @@ export default function UserHabits(props){
 
     function deleteHabit(){
 
+        const resultado = window.confirm('Tem certeza que deseja excluir esse hábito?');
+
+        if(resultado){
+
         const config = {
             headers: {
                 'Authorization': 'Bearer ' + userInfoObject.token
@@ -22,7 +26,7 @@ export default function UserHabits(props){
 
         axios.delete(API, config).then(
             axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config).then(response => setUserHabitsArray(response.data))
-        );
+        );}
 
     }
 

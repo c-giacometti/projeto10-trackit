@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
@@ -11,11 +11,10 @@ import TodayHabits from './today-habits';
 export default function TodayView(){
 
     const APItoday = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
-    const { userInfoObject, todayHabitsArray, setTodayHabitsArray, setDoneHabits } = useContext(UserContext);
+    const { userInfoObject, todayHabitsArray, setTodayHabitsArray } = useContext(UserContext);
+    const [refresh, setRefresh] = useState(0);   
 
     useEffect(() => {
-
-        setDoneHabits(0);
 
         const config = {
             headers: {
@@ -33,28 +32,17 @@ export default function TodayView(){
                 alert('Não foi possível carregar os hábitos de hoje');
             })
             
-    }, []);
-
-    if(todayHabitsArray.length === 0) {
-        return (
-            <HabitContainer>
-                <ThreeDots 
-                height="15px"
-                width="50px"
-                color="#FFFFFF"
-                />
-            </HabitContainer>
-        );
-    }
+    }, [todayHabitsArray]);
 
     return (
         <div>
             <HabitContainer>
                 <Top />
-                <DailyStatus todayHabits={todayHabitsArray} />
+                <DailyStatus refresh={refresh} todayHabits={todayHabitsArray} />
                 <TodayHabitsContainer>
                     {todayHabitsArray.map((render, index) => render.currentSequence === render.highestSequence ? 
-                        <TodayHabits todayHabit={render} key={index} highest='yes'/> : <TodayHabits todayHabit={render} key={index} highest='no'/>
+                        <TodayHabits refresh={refresh} setRefresh={setRefresh} todayHabit={render} key={index} highest='yes'/> : 
+                        <TodayHabits refresh={refresh} setRefresh={setRefresh} todayHabit={render} key={index} highest='no'/>
                     )}  
                 </TodayHabitsContainer>
                 <Menu /> 

@@ -7,14 +7,14 @@ import UserContext from './user-context';
 
 export default function TodayHabits(props){
 
-    const { todayHabit, highest } = props;
-    const { userInfoObject, setDoneHabits } = useContext(UserContext);
+    const { todayHabit, highest, refresh, setRefresh } = props;
+    const { userInfoObject, setTodayHabitsArray } = useContext(UserContext);
     const [done, setDone] = useState(false);
 
     function checkHabit(){
 
-        setDoneHabits(0);
-
+        setRefresh(refresh + 1);
+        
         const config = {
             headers: {
                 'Authorization': 'Bearer ' + userInfoObject.token
@@ -31,6 +31,8 @@ export default function TodayHabits(props){
 
             promise.then(setDone(true));
         }
+
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config).then(response => setTodayHabitsArray(response.data));
 
     }
 

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -8,10 +8,11 @@ import UserContext from './user-context';
 export default function Menu(){
 
     const { todayHabitsArray, doneHabits } = useContext(UserContext);
-    
-    if(todayHabitsArray.length === 0) { const percentage = 0; }
+    const [percentage, setPercentage] = useState(0);
 
-    const percentage = (doneHabits / todayHabitsArray.length) * 100;
+    if(todayHabitsArray.length > 0) {
+        setPercentage((doneHabits / todayHabitsArray.length) * 100);
+    }
 
     return (
         <Footer>
@@ -26,6 +27,7 @@ export default function Menu(){
                         styles={buildStyles({
                           backgroundColor: "#52B6FF",
                           textColor: "#fff",
+                          textSize: '20px',
                           pathColor: "#fff",
                           trailColor: "transparent",
                           strokeLinecap: "round",
@@ -72,5 +74,7 @@ const Progress = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: left;
     bottom: 30px;
+
 `
