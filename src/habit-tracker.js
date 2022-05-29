@@ -29,20 +29,33 @@ export default function HabitTracker(){
             .then(response => {
                 setUserHabitsArray(response.data);
             })
-            .catch((erro) => {
+            .catch(() => {
                 alert('Não foi possível carregar os hábitos');
             })
     }, []);
 
-    console.log(userHabitsArray);
+    if(userHabitsArray.length === 0){
+        return (
+            <HabitContainer>
+                <Top />
+                <AddHabit setAppear={setAppear} />
+                <NewHabit appear={appear} setAppear={setAppear} userHabitsArray={userHabitsArray} setUserHabitsArray={setUserHabitsArray} />
+                <Text>
+                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+                </Text>
+                <Menu /> 
+            </HabitContainer>
+        );
+    }
 
     return (
         <HabitContainer>
             <Top />
             <AddHabit setAppear={setAppear} />
             <NewHabit appear={appear} setAppear={setAppear} userHabitsArray={userHabitsArray} setUserHabitsArray={setUserHabitsArray} />
-            {userHabitsArray.map((render, map) => (
-                <UserHabits userHabitName={render.name} habitDays={render.days} />
+            {userHabitsArray.map((render, index) => (
+                <UserHabits userHabitsName={render.name} userHabitsDays={render.days} habitId={render.id} userHabitsArray={userHabitsArray}
+                setUserHabitsArray={setUserHabitsArray} key={index} />
             ))}
             <Menu /> 
         </HabitContainer>
@@ -56,4 +69,15 @@ const HabitContainer = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const Text = styled.span `
+    width: 375px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 20px;
+    color: #666666;
+    line-height: 22px;
+    margin-top: 10px;
 `

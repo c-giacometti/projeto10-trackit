@@ -10,10 +10,11 @@ import HabitTracker from './habit-tracker';
 export default function Trackit(){
 
     const [userInfoObject, setUserInfoObject] = useState(null);
+    const [todayHabitsArray, setTodayHabitsArray] = useState([]);
 
     return (
         <BrowserRouter>
-            <UserContext.Provider value={{userInfoObject, setUserInfoObject}}>
+            <UserContext.Provider value={{userInfoObject, setUserInfoObject, todayHabitsArray, setTodayHabitsArray}}>
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/cadastro' element={<CreateAccount />} />

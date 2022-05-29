@@ -36,6 +36,7 @@ export default function NewHabit( {appear, setAppear, userHabitsArray, setUserHa
 
         promise
             .then(response => {
+                setDisable('');
                 setAppear(false);
                 const newArray = [...userHabitsArray, response.data];
                 setUserHabitsArray(newArray);
@@ -44,6 +45,8 @@ export default function NewHabit( {appear, setAppear, userHabitsArray, setUserHa
                 alert('Não foi possível adicionar o novo hábito');
                 setDisable('');
             })
+
+        setHabit('');
     }
 
     return (

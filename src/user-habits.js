@@ -1,16 +1,34 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
+
+import UserContext from './user-context';
 import DayContainer from "./day-container";
 
 export default function UserHabits(props){
-
-    const { userHabitName, habitDays } = props;
+    
+    const { userInfoObject } = useContext(UserContext);
+    const { userHabitsName, userHabitsDays, habitId, userHabitsArray, setUserHabitsArray} = props;
     const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+    const API = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/' + habitId;
+
+    function deleteHabit(){
+
+        const config = {
+            headers: {
+                'Authorization': 'Bearer ' + userInfoObject.token
+            }
+        }
+
+        axios.delete(API, config);
+
+    }
 
     return (
         <HabitContainer>
             <HabitName>
-                <span>{userHabitName}</span>
-                <ion-icon name="trash-outline"></ion-icon>
+                <span>{userHabitsName}</span>
+                <ion-icon name="trash-outline" onClick={deleteHabit}></ion-icon>
             </HabitName>
             <DaysContainer>
                 {weekDays.map((render, index) => (
@@ -18,7 +36,7 @@ export default function UserHabits(props){
                 )}
             </DaysContainer>
         </HabitContainer>
-    );
+        );
 
 }
 

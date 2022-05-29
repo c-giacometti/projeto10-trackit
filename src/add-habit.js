@@ -36,5 +36,6 @@ const AddHabitContainer = styled.div `
         border-radius: 5px;
         font-size: 26px;
         color: white;
+        cursor: pointer;
     }
 `
